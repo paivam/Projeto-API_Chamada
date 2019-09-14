@@ -17,9 +17,6 @@ public class Chamada {
 	@Column(name = "DATA", updatable = false)
 	Date data;
 	
-	@Column(name = "STATUS", updatable = true)	
-	String status;
-	
 	@Column(name = "TURMA", updatable = true)
 	@OneToOne
 	Turma turma;
