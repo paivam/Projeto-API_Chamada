@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -22,11 +23,14 @@ public class Aluno implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	
+	@NotNull(message = "o campo não deve ser nulo")
 	@Column(name = "NOME_ALUNO", updatable = true)
 	String nome;
 	
 	@Column(name = "MATRICULA", updatable = false, unique = true)
+	@NotNull(message = "o campo não deve ser nulo")
 	Long matricula;
+	
 	
 	@Column(name = "STATUS", updatable = true)	
 	String status;

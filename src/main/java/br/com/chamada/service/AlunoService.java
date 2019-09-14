@@ -15,6 +15,9 @@ public class AlunoService {
 	AlunoRepository repository;
 
 	public Aluno cadastra(Aluno model) {
+		
+		model.setStatus("Ativo");
+		
 		return repository.save(model);
 	}
 
