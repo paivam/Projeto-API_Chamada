@@ -34,7 +34,7 @@ public class AlunoService {
 		return repository.save(alunoAtualizado);
 	}
 
-	public Aluno busca(Long id, Aluno model) throws Exception {
+	public Aluno busca(Long id) throws Exception {
 		Aluno alunoEncontrado = repository.findById(id).orElse(null);
 
 		if (alunoEncontrado == null) {
@@ -44,12 +44,12 @@ public class AlunoService {
 		return alunoEncontrado;
 	}
 	
-	public void deleta(Long id, Aluno model) throws Exception {
-		
-		if(repository.findById(id) == null) {
+	public void deleta(Long id) throws Exception {
+		Aluno aluno = repository.findById(id).orElse(null);
+		if( aluno == null) {
 			throw new Exception("Aluno não cadastrado em nosso sistema");
 		}
-		repository.delete(model);
+		repository.delete(aluno);
 		
 	}
 	

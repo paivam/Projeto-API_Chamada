@@ -23,8 +23,9 @@ import br.com.chamada.service.AlunoService;
 @RequestMapping(Icontroller.CONTEXTO_ALUNO)
 public class AlunoController {
 
-	public final static String PATH_ID = "/{aluno_id}";
+	public final static String PATH_ID = "/{id}";
 	public final static String ID = "id";
+	
 
 	@Autowired
 	AlunoService service;
@@ -45,7 +46,7 @@ public class AlunoController {
 	}
 
 	@PatchMapping(PATH_ID)
-	public ResponseEntity<Aluno> atualizaAluno(@PathVariable(value = ID) Long id, @RequestBody Aluno model)
+	public ResponseEntity<Aluno> atualizaAluno(@PathVariable(ID) Long id, @RequestBody Aluno model)
 			throws Exception {
 		
 		Aluno alunoAtualizado = service.atualiza(id, model);
@@ -55,9 +56,9 @@ public class AlunoController {
 	}
 	
 	@GetMapping(PATH_ID)
-	public ResponseEntity<Aluno> buscaAluno(@PathVariable(value = ID) Long id, @RequestBody Aluno model) throws Exception{
+	public ResponseEntity<Aluno> buscaAluno(@PathVariable(ID) Long id) throws Exception{
 		
-		Aluno alunoEncontrado = service.busca(id, model);
+		Aluno alunoEncontrado = service.busca(id);
 		
 		return new ResponseEntity<Aluno>(alunoEncontrado, HttpStatus.OK);
 	}
@@ -75,8 +76,8 @@ public class AlunoController {
 	
 
 	@DeleteMapping(PATH_ID)
-	public ResponseEntity<String> deletaAluno(@PathVariable(value = ID) Long id, @RequestBody Aluno model) throws Exception{
-		service.deleta(id, model);
+	public ResponseEntity<String> deletaAluno(@PathVariable(ID) Long id) throws Exception{
+		service.deleta(id);
 		
 		return new ResponseEntity<String>("Aluno deletado com sucesso", HttpStatus.OK);
 	}
