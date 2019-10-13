@@ -1,6 +1,6 @@
 package br.com.chamada.controller;
 
-import br.com.chamada.controller.mapping.Icontroller;
+import br.com.chamada.controller.mapping.IController;
 import br.com.chamada.model.Usuario;
 import br.com.chamada.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.management.AttributeNotFoundException;
 
 
 @RestController
-@RequestMapping(Icontroller.CONTEXTO_USUARIO)
+@RequestMapping(IController.CONTEXTO_USUARIO)
 public class UsuarioController {
 
     private final static String PATH_ID = "/{id}";
