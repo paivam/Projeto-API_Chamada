@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.chamada.controller.mapping.Icontroller;
+import br.com.chamada.controller.mapping.IController;
 import br.com.chamada.model.Aluno;
 import br.com.chamada.service.AlunoService;
 
 @RestController
-@RequestMapping(Icontroller.CONTEXTO_ALUNO)
+@RequestMapping(IController.CONTEXTO_ALUNO)
 public class AlunoController {
 
 	public final static String PATH_ID = "/{id}";
