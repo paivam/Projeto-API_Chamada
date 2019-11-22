@@ -24,7 +24,6 @@ public class Aluno implements Serializable{
 	@NotNull(message = "o campo não deve ser nulo")
 	Long matricula;
 	
-	
 	@Column(name = "STATUS", updatable = true)	
 	String status;
 

@@ -21,7 +21,7 @@ public class Professor implements Serializable{
 
     @Column(name = "MATRICULA", updatable = false, unique = true)
     private Long matricula;
-
+    
 //	@Column(name = "USUARIO", updatable = true, unique = true)
 //	@OneToOne
 //	Usuario usuario;

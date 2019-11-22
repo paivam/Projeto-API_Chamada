@@ -19,11 +19,11 @@ public class Turma implements Serializable {
 	@Column(name = "NOME_TURMA", updatable = true, unique = true)
 	String nome;
 
-	@Column(name = "ALUNOS", updatable = true)
+	@JoinColumn(name = "ALUNOS", updatable = true)
 	@OneToMany
 	List<Aluno> alunos;
 
-	@Column(name = "PROFESSORES", updatable = true)
+	@JoinColumn(name = "PROFESSORES", updatable = true)
 	@ManyToMany
 	List<Professor> professores;
 
@@ -45,4 +45,28 @@ public class Turma implements Serializable {
     public void setProfessores(List<Professor> professores) {
         this.professores = professores;
     }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
 }

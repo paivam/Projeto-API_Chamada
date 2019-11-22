@@ -19,6 +19,10 @@ public class TurmaService {
     public Turma cadastrar(Turma turma){
         return turmaRepository.save(turma);
     }
+    
+    public List<Turma> getTodas(){
+    	return turmaRepository.findAll();
+    }
 
     public Turma buscar(Long id) throws ClassNotFoundException{
         return turmaRepository.findById(id).orElseThrow(ClassNotFoundException::new);
