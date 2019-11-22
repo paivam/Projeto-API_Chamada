@@ -1,15 +1,21 @@
 package br.com.chamada.controller;
 
-import br.com.chamada.controller.mapping.IController;
-import br.com.chamada.model.Aluno;
-import br.com.chamada.model.Turma;
-import br.com.chamada.service.AlunoService;
-import br.com.chamada.service.ProfessorService;
-import br.com.chamada.service.TurmaService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.chamada.controller.mapping.IController;
+import br.com.chamada.model.Turma;
+import br.com.chamada.service.TurmaService;
 
 @RestController
 @RequestMapping(IController.CONTEXTO_TURMA)
@@ -30,6 +36,13 @@ public class TurmaController {
         Turma turma = turmaService.buscar(id);
 
         return new ResponseEntity<Turma>(turma, HttpStatus.OK);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<Turma>> buscarTodas() throws ClassNotFoundException {
+        List<Turma> turma = turmaService.getTodas();
+
+        return new ResponseEntity<>(turma, HttpStatus.OK);
     }
 
     @PatchMapping(IController.ID)
