@@ -17,10 +17,6 @@ public class TurmaController {
 
     @Autowired
     private TurmaService turmaService;
-    @Autowired
-    private ProfessorService professorService;
-    @Autowired
-    private AlunoService alunoService;
 
     @PostMapping
     public ResponseEntity<Turma> cadastrar(@RequestBody Turma turma){
@@ -36,10 +32,8 @@ public class TurmaController {
         return new ResponseEntity<Turma>(turma, HttpStatus.OK);
     }
 
-    @PatchMapping(IController.PATH_ID)
-    public ResponseEntity<Turma> alterar(@PathVariable Long id) throws ClassNotFoundException {
-        Turma turma = turmaService.buscar(id);
-
+    @PatchMapping(IController.ID)
+    public ResponseEntity<Turma> alterar(@PathVariable Long id, @RequestBody Turma turma) throws ClassNotFoundException {
         Turma turmaNova = turmaService.atualizar(id, turma);
 
         return new ResponseEntity<Turma>(turmaNova, HttpStatus.OK);
