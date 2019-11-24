@@ -20,11 +20,11 @@ public class Turma implements Serializable {
 	String nome;
 
 	@JoinColumn(name = "ALUNOS", updatable = true)
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	List<Aluno> alunos;
 
 	@JoinColumn(name = "PROFESSORES", updatable = true)
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	List<Professor> professores;
 
 	@Column(name = "TURNO", updatable = false)
