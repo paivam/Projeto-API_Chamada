@@ -19,7 +19,7 @@ public class Turma implements Serializable {
 	@Column(name = "NOME_TURMA", updatable = true, unique = true)
 	String nome;
 
-	@JoinColumn(name = "ALUNOS", updatable = true)
+	@JoinColumn(name = "TURMA", updatable = true)
 	@OneToMany
 	List<Aluno> alunos;
 

@@ -2,15 +2,9 @@ package br.com.chamada.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -36,9 +30,17 @@ public class Chamada implements Serializable{
 	@Column(name = "DATA", updatable = false)
 	Date data;
 	
-	@ManyToOne
-	@JoinColumn(name =  "turma")
-	Turma turma;
+	@ManyToMany
+	@JoinColumn(name =  "professores")
+	List<Professor> professores;
+
+	@ManyToMany
+	@JoinColumn(name =  "alunos")
+	List<Aluno> alunos;
+
+	String idAlunosFalta;
+
+	Long idTurma;
 
 	public Long getId() {
 		return id;
@@ -56,14 +58,35 @@ public class Chamada implements Serializable{
 		this.data = data;
 	}
 
-	public Turma getTurma() {
-		return turma;
+	public Long getIdTurma() {
+		return idTurma;
 	}
 
-	public void setTurma(Turma turma) {
-		this.turma = turma;
+	public void setIdTurma(Long idTurma) {
+		this.idTurma = idTurma;
 	}
-	
-	
-		
+
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public String getIdAlunosFalta() {
+		return idAlunosFalta;
+	}
+
+	public void setIdAlunosFalta(String idAlunosFalta) {
+		this.idAlunosFalta = idAlunosFalta;
+	}
 }
