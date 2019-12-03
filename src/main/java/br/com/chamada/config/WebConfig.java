@@ -1,4 +1,4 @@
-package br.com.chamada.controller.config;
+package br.com.chamada.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
