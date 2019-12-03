@@ -31,6 +31,10 @@ public class ChamadaService {
 	}
 	
 	public Chamada post(Chamada model) {
+		if(model.getIdAlunosFalta() != null || model.getIdAlunosFalta().equals("")){
+			model.setIdAlunosFalta(";");
+		}
+		
 		return repo.save(model);
 	}
 

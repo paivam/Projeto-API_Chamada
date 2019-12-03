@@ -30,17 +30,15 @@ public class Chamada implements Serializable{
 	@Column(name = "DATA", updatable = false)
 	Date data;
 	
-	@ManyToMany
-	@JoinColumn(name =  "professores")
-	List<Professor> professores;
+	@OneToOne
+	@JoinColumn(name =  "turma")
+	Turma turma;
 
 	@ManyToMany
 	@JoinColumn(name =  "alunos")
 	List<Aluno> alunos;
 
 	String idAlunosFalta;
-
-	Long idTurma;
 
 	public Long getId() {
 		return id;
@@ -58,20 +56,12 @@ public class Chamada implements Serializable{
 		this.data = data;
 	}
 
-	public Long getIdTurma() {
-		return idTurma;
+	public Turma getTurma() {
+		return turma;
 	}
 
-	public void setIdTurma(Long idTurma) {
-		this.idTurma = idTurma;
-	}
-
-	public List<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 	public List<Aluno> getAlunos() {

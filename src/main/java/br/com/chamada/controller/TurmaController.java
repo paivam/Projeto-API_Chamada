@@ -1,7 +1,11 @@
 package br.com.chamada.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.com.chamada.model.Aluno;
+import br.com.chamada.model.TurmaAluno;
+import br.com.chamada.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +27,28 @@ public class TurmaController {
 
     @Autowired
     private TurmaService turmaService;
+    @Autowired
+    private AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<Turma> cadastrar(@RequestBody Turma turma){
-        Turma turmaCadastrada = turmaService.cadastrar(turma);
+    public ResponseEntity<Turma> cadastrar(@RequestBody TurmaAluno turmaAluno) throws Exception {
+        List<Aluno> alunos = new ArrayList<>();
+        
+        Turma turmaCadastrada = turmaService.cadastrar(turmaAluno.getTurma());
+
+        for(Aluno aluno : turmaAluno.getAlunos()){
+            Aluno alunoToAdd = alunoService.busca(aluno.getId());
+            
+            if(alunoToAdd != null){
+                alunos.add(alunoToAdd);
+            }
+        }
+
+        for(Aluno aluno : alunos){
+            aluno.setTurma(turmaCadastrada);
+
+            alunoService.cadastra(aluno);
+        }
 
         return new ResponseEntity<Turma>(turmaCadastrada, HttpStatus.CREATED);
     }

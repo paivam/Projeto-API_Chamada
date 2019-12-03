@@ -23,8 +23,14 @@ public class Aluno implements Serializable{
 	@Column(name = "MATRICULA", updatable = false, unique = true)
 	@NotNull(message = "o campo não deve ser nulo")
 	Long matricula;
-	
-	@Column(name = "STATUS", updatable = true)	
+
+	@JoinColumn(name = "TURMA", updatable = true)
+	@ManyToOne
+	Turma turma;
+
+
+
+	@Column(name = "STATUS", updatable = true)
 	String status;
 
 	public Long getId() {
@@ -58,7 +64,13 @@ public class Aluno implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
 }
 

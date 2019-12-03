@@ -19,24 +19,12 @@ public class Turma implements Serializable {
 	@Column(name = "NOME_TURMA", updatable = true, unique = true)
 	String nome;
 
-	@JoinColumn(name = "TURMA", updatable = true)
-	@OneToMany
-	List<Aluno> alunos;
-
 	@JoinColumn(name = "PROFESSORES", updatable = true)
 	@ManyToMany
 	List<Professor> professores;
 
 	@Column(name = "TURNO", updatable = false)
 	String turno;
-
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
-    }
 
     public List<Professor> getProfessores() {
         return professores;

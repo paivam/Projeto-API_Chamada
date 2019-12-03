@@ -1,5 +1,6 @@
 package br.com.chamada.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,18 @@ public class AlunoService {
 	
 	public List<Aluno> lista(){
 		return repository.findAll();
+	}
+
+	public List<Aluno> getByTurma(Long id){
+		List<Aluno> alunosRet = new ArrayList<>();
+		List<Aluno> alunos = lista();
+
+		for(Aluno aluno : alunos){
+			if(aluno.getTurma().getId().equals(id)){
+				alunosRet.add(aluno);
+			}
+		}
+
+		return alunosRet;
 	}
 }

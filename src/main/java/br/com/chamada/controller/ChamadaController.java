@@ -3,8 +3,13 @@ package br.com.chamada.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import br.com.chamada.model.Aluno;
+import br.com.chamada.model.Turma;
+import br.com.chamada.service.AlunoService;
+import br.com.chamada.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +25,10 @@ public class ChamadaController {
 	
 	@Autowired
 	private ChamadaService service;
+    @Autowired
+    private TurmaService turmaService;
+    @Autowired
+    private AlunoService alunoService;
 
 	@PostMapping
 	public ResponseEntity<Long> cadastrar(@RequestBody Chamada Chamada){
@@ -47,6 +56,37 @@ public class ChamadaController {
         List<Chamada> chamadas = service.get(new SimpleDateFormat().parse(data));
 
 	    return new ResponseEntity<>(chamadas, HttpStatus.OK);
+    }
+
+    @GetMapping("/presentes/{id}")
+    public ResponseEntity<List<Aluno>> buscarAlunosPresentes(@PathVariable("id") Long id) throws ParseException {
+        List<Aluno> alunoRet = new ArrayList<>();
+        Chamada chamada = service.getId(id);
+
+        Turma turma = chamada.getTurma();
+
+        List<Aluno> alunos = alunoService.getByTurma(turma.getId());
+
+        List<String> alunosFaltaram = Arrays.asList(chamada.getIdAlunosFalta().split(";"));
+
+        for(Aluno aluno : alunos){
+            boolean alunoFaltou = false;
+            
+            for(String idAlunoFaltou : alunosFaltaram){
+                if(!idAlunoFaltou.equals(";") || !idAlunoFaltou.equals("")){
+                    if(aluno.getId() == Long.parseLong(idAlunoFaltou)){
+                        alunoFaltou = true;
+                        break;
+                    }
+                }
+            }
+
+            if(!alunoFaltou){
+                alunoRet.add(aluno);
+            }
+        }
+
+        return new ResponseEntity<List<Aluno>>(alunoRet, HttpStatus.OK);
     }
 
     @PatchMapping(IController.ID)

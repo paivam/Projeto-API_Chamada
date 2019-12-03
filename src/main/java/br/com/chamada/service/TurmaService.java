@@ -3,10 +3,13 @@ package br.com.chamada.service;
 import br.com.chamada.model.Aluno;
 import br.com.chamada.model.Professor;
 import br.com.chamada.model.Turma;
+import br.com.chamada.model.TurmaAluno;
+import br.com.chamada.repository.AlunoRepository;
 import br.com.chamada.repository.TurmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +19,25 @@ public class TurmaService {
     @Autowired
     private TurmaRepository turmaRepository;
 
-    public Turma cadastrar(Turma turma){
-        return turmaRepository.save(turma);
+    public Turma cadastrar(Turma turma) throws ClassNotFoundException {
+        Turma turmaAtual = null;
+        
+        List<Turma> turmas = getTodas();
+
+        for(Turma newTurma : turmas){
+            if(turma.getNome().equals(newTurma.getNome())){
+                turmaAtual = newTurma;
+                break;
+            }
+        }
+
+        if(turmaAtual == null){
+            return turmaRepository.save(turma);
+        } else{
+            return turmaAtual;
+        }
     }
-    
+
     public List<Turma> getTodas(){
     	return turmaRepository.findAll();
     }
@@ -33,26 +51,13 @@ public class TurmaService {
 
         List<Professor> professores = GetProfessoresNotInTurma(turmaAtual, turmaNovo);
 
-        List<Aluno> alunos = GetAlunosNotInTurma(turmaAtual, turmaNovo);
-
-        if(!alunos.isEmpty()){
-            turmaAtual.getAlunos().addAll(alunos);
-        }
-
         if(!professores.isEmpty()){
             turmaAtual.getProfessores().addAll(professores);
         }
 
         return cadastrar(turmaAtual);
     }
-
-    private List<Aluno> GetAlunosNotInTurma(Turma turmaAtual, Turma turmaNovo){
-        return turmaNovo.getAlunos()
-                .stream()
-                .filter(a -> !turmaAtual.getAlunos().contains(a))
-                .collect(Collectors.toList());
-    }
-
+    
     private List<Professor> GetProfessoresNotInTurma(Turma turmaAtual, Turma turmaNovo){
         return turmaNovo.getProfessores()
                 .stream()
